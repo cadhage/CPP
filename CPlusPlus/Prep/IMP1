@@ -1,0 +1,67 @@
+permutation and combination coding
+1: permutation means a-b and b-a is same;
+2: combination means a-b and b-a is same;
+3: p=(n!)/(n-k)!;
+4: c=(n!)/((k!)(n-k)!)
+5: repetation 
+	p=n!/(r1!*r2!....rn!);
+	c=(n+k-1)!/k!*(n-1)!;
+6: coding formula: p(n,k)=(n)!/((n-k)!*k!);
+	int binomial(int n,int k){
+	int res=1;
+	if(k>n-k)
+		k=n-k;
+	for(int i=0;i<k;i++){
+		res*=(n-i);
+		res/=(i+1);
+	}
+	return res;
+	}
+7:"C:\Users\chandra\Pictures\Screenshots\Screenshot (134).png"
+8: IMP: POWER SET ((i&(1<<j))!=0);
+9: FACTORIAL
+#include<iostream>
+using namespace std;
+
+#define MAX 500
+
+int multiply(int x, int res[], int res_size);
+
+void factorial(int n)
+{
+    int res[MAX];
+
+    res[0] = 1;
+    int res_size = 1;
+
+    for (int x=2; x<=n; x++)
+    {
+        res_size = multiply(x, res, res_size);
+    }
+
+    cout << "Factorial of given number is \n";
+    for (int i=res_size-1; i>=0; i--)
+        cout << res[i];
+}
+
+int multiply(int x, int res[], int res_size)
+{
+    int carry = 0;
+
+    for (int i=0; i<res_size; i++)
+    {
+        int prod = res[i] * x + carry;
+        res[i] = prod % 10;  
+        carry  = prod/10;    
+    }
+
+    while (carry)
+    {
+        res[res_size] = carry%10;
+        carry = carry/10;
+        res_size++;
+    }
+    return res_size;
+}
+
+
